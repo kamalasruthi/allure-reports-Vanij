@@ -1,0 +1,9 @@
+node_modules/
+allure-results/
+allure-report/
+allure-report.zip
+playwright-report/
+test-results/
+videos/
+screenshots/
+*.zip
