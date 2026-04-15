@@ -1,0 +1,224 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - banner [ref=e4]:
+        - generic [ref=e5]:
+          - generic [ref=e6]:
+            - img [ref=e8] [cursor=pointer]
+            - heading [level=1] [ref=e9]: ADYA
+          - generic [ref=e10]:
+            - button [ref=e11] [cursor=pointer]:
+              - img
+              - text: Ask SAI
+            - button [ref=e12] [cursor=pointer]:
+              - img
+              - text: AI Marketplace
+            - button [ref=e13] [cursor=pointer]:
+              - img
+              - generic: "7"
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - generic [ref=e16]:
+            - navigation [ref=e17]:
+              - button [ref=e19] [cursor=pointer]:
+                - img [ref=e20]
+              - button [ref=e22] [cursor=pointer]:
+                - img [ref=e23]
+              - button [ref=e25] [cursor=pointer]:
+                - img [ref=e26]
+              - button [ref=e28] [cursor=pointer]:
+                - img [ref=e29]
+              - button [ref=e31] [cursor=pointer]:
+                - img [ref=e32]
+              - button [ref=e35] [cursor=pointer]:
+                - img [ref=e36]
+            - button [ref=e38] [cursor=pointer]:
+              - img [ref=e39]
+          - generic [ref=e43]:
+            - generic [ref=e44]:
+              - generic [ref=e45]: Agent Studio
+              - button [ref=e46] [cursor=pointer]:
+                - img [ref=e47]
+            - navigation [ref=e52]:
+              - link [ref=e53]:
+                - /url: /agent-studio/overview
+                - img [ref=e54]
+                - generic [ref=e59]: Overview
+              - link [ref=e60]:
+                - /url: /agent-studio/multi-agent-network
+                - img [ref=e61]
+                - generic [ref=e68]: Multi Agent Network
+              - link [ref=e69]:
+                - /url: /agent-studio/projects
+                - img [ref=e70]
+                - generic [ref=e75]: Projects
+              - link [ref=e76]:
+                - /url: /agent-studio/components
+                - img [ref=e77]
+                - generic [ref=e87]: Components
+              - link [ref=e88]:
+                - /url: /agent-studio/flow-deployment
+                - img [ref=e89]
+                - generic [ref=e94]: Flow Deployment
+              - link [ref=e95]:
+                - /url: /agent-studio/man-deployment
+                - img [ref=e96]
+                - generic [ref=e103]: MAN Deployment
+              - link [ref=e104]:
+                - /url: /agent-studio/component-deployment
+                - img [ref=e105]
+                - generic [ref=e108]: Comp. Deployment
+              - link [ref=e109]:
+                - /url: /agent-studio/observability
+                - img [ref=e110]
+                - generic [ref=e113]: Observability
+              - link [ref=e114]:
+                - /url: /agent-studio/agp
+                - img [ref=e115]
+                - generic [ref=e118]: AGP
+              - link [ref=e119]:
+                - /url: /agent-studio/etl
+                - img [ref=e120]
+                - generic [ref=e123]: ETL
+              - link [ref=e124]:
+                - /url: /agent-studio/cpaas
+                - img [ref=e125]
+                - generic [ref=e131]: CPAAS
+              - link [ref=e132]:
+                - /url: /user-management
+                - img [ref=e133]
+                - generic [ref=e138]: Manage Users
+              - link [ref=e139]:
+                - /url: /file-manager
+                - img [ref=e140]
+                - generic [ref=e143]: File Manager
+              - link [ref=e144]:
+                - /url: /audit-trail
+                - img [ref=e145]
+                - generic [ref=e147]: Audit Trail
+              - link [ref=e148]:
+                - /url: /key-vault
+                - img [ref=e149]
+                - generic [ref=e152]: Key Vault
+              - link [ref=e153]:
+                - /url: /support
+                - img [ref=e154]
+                - generic [ref=e157]: Support
+              - link [ref=e158]:
+                - /url: /subscription-plans
+                - img [ref=e159]
+                - generic [ref=e162]: Subscription Plans
+              - link [ref=e163]:
+                - /url: /billing
+                - img [ref=e164]
+                - generic [ref=e166]: Billing
+              - link [ref=e167]:
+                - /url: /faqs
+                - img [ref=e168]
+                - generic [ref=e171]: FAQs
+            - generic [ref=e173] [cursor=pointer]:
+              - img [ref=e175]
+              - generic [ref=e178]:
+                - paragraph [ref=e179]: Wallet Balance
+                - paragraph [ref=e180]: ₹0.00
+              - img [ref=e182]
+        - main [ref=e185]:
+          - generic [ref=e186]:
+            - generic [ref=e187]:
+              - img [ref=e188]
+              - navigation [ref=e190]:
+                - list [ref=e191]:
+                  - listitem [ref=e192]:
+                    - generic [ref=e193]: AGP
+              - button [ref=e196] [cursor=pointer]:
+                - img
+                - text: Docs
+            - generic [ref=e197]:
+              - generic [ref=e198]:
+                - generic [ref=e204]:
+                  - heading [level=1] [ref=e205]: Your Business your rules
+                  - paragraph [ref=e206]: A business rules engine that uses logical rules to automate decisions, workflows, and processes — often without needing to hard-code logic into software.
+                - generic [ref=e207]:
+                  - generic [ref=e210]: Total Active rules created
+                  - generic [ref=e212]: "0"
+              - generic [ref=e213]:
+                - generic [ref=e214]:
+                  - button [ref=e215] [cursor=pointer]: Rules
+                  - button [ref=e216] [cursor=pointer]: Templates
+                - generic [ref=e217]:
+                  - generic [ref=e218]:
+                    - button [ref=e219] [cursor=pointer]: Create New Rule
+                    - generic [ref=e220]:
+                      - img [ref=e221]
+                      - textbox [ref=e224]:
+                        - /placeholder: Search...
+                    - combobox [ref=e225] [cursor=pointer]:
+                      - generic: All Geo Scopes
+                      - img [ref=e226]
+                    - group [ref=e229]:
+                      - button [pressed] [ref=e230] [cursor=pointer]:
+                        - img [ref=e231]
+                      - button [ref=e236] [cursor=pointer]:
+                        - img [ref=e237]
+                  - generic [ref=e239]:
+                    - img [ref=e240]
+                    - heading [level=3] [ref=e243]: No rules found
+                    - paragraph [ref=e244]: Create your first rule to get started
+                  - generic [ref=e248]:
+                    - paragraph [ref=e249]: "Per Page:"
+                    - generic [ref=e250]:
+                      - combobox [ref=e251] [cursor=pointer]: "12"
+                      - textbox: "12"
+                      - img
+                    - paragraph [ref=e252]: 0–0 of 0
+                    - generic [ref=e253]:
+                      - button [disabled]:
+                        - img
+                      - button [disabled]:
+                        - img
+    - listitem [ref=e254]:
+      - img [ref=e256]
+      - generic [ref=e260]: 🚀 A new version is available
+      - button [ref=e261] [cursor=pointer]: Reload
+  - generic [ref=e264]:
+    - heading "Create New Rule" [level=2] [ref=e265]:
+      - img [ref=e266]
+      - text: Create New Rule
+      - button [ref=e271] [cursor=pointer]:
+        - img [ref=e272]
+    - generic [ref=e274]:
+      - generic [ref=e275]:
+        - generic [ref=e276]: Rule Name
+        - generic [ref=e279]:
+          - textbox "Enter your rule name" [ref=e280]: Automation Rule 1771482592576
+          - generic [ref=e281]: 29 / 100
+          - group
+      - generic [ref=e282]:
+        - generic [ref=e283]: Rule Description
+        - generic [ref=e286]:
+          - textbox "Enter your rule description" [ref=e287]: Automation AGP Rule Description
+          - generic [ref=e288]: 31 / 500
+          - group
+      - generic [ref=e289]:
+        - generic [ref=e290]: Geo Scope
+        - generic [ref=e293]:
+          - textbox "Enter geo scope" [ref=e294]: geo
+          - group
+      - generic [ref=e295]:
+        - generic [ref=e296]: Sub Geo Scope
+        - generic [ref=e299]:
+          - textbox "Enter sub geo scope" [ref=e300]: gei
+          - group
+      - generic [ref=e301]:
+        - generic [ref=e302]: Upload Files
+        - generic [ref=e304] [cursor=pointer]:
+          - img [ref=e305]
+          - generic [ref=e309]: Upload multiple file or drag and drop
+          - generic [ref=e310]: PDF, CSV, XLS, DOCX, TXT files up to 10MB
+      - generic [ref=e311]:
+        - button "Cancel" [ref=e312] [cursor=pointer]
+        - button "Create Rule" [disabled]
+```

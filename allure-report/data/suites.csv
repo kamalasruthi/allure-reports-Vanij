@@ -1,0 +1,8 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","30310","Global Login Setup","setup","2026-02-19","passed","2026-02-19","","setup\auth.setup.spec.js","",""
+"","57713","Verify user can open AGP module","firefox","2026-02-19","passed","2026-02-19","Agent Studio - AGP Module","agent-studio\agp.spec.js","",""
+"","60585","Verify user can create new AGP rule","chromium","2026-02-19","broken","2026-02-19","Agent Studio - AGP Module","agent-studio\agp.spec.js","",""
+"","53147","Verify user can create new AGP rule","firefox","2026-02-19","failed","2026-02-19","Agent Studio - AGP Module","agent-studio\agp.spec.js","",""
+"","61223","Verify user can create new AGP rule","webkit","2026-02-19","broken","2026-02-19","Agent Studio - AGP Module","agent-studio\agp.spec.js","",""
+"","61564","Verify user can open AGP module","webkit","2026-02-19","broken","2026-02-19","Agent Studio - AGP Module","agent-studio\agp.spec.js","",""
+"","45616","Verify user can open AGP module","chromium","2026-02-19","passed","2026-02-19","Agent Studio - AGP Module","agent-studio\agp.spec.js","",""
