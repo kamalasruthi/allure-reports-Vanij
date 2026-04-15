@@ -29,7 +29,8 @@ export default defineConfig({
 
   use: {
     baseURL: process.env.BASE_URL,
-    headless: false, // 👈 keep false while debugging
+
+    headless: false, // keep false while debugging
 
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
@@ -49,11 +50,31 @@ export default defineConfig({
        🔐 AUTH TESTS (NO SESSION REUSE)
        =============================== */
     {
-      name: 'auth',
+      name: 'auth-chromium',
       testMatch: /tests\/auth\/.*\.spec\.js/,
       use: {
         browserName: 'chromium',
         ...devices['Desktop Chrome'],
+        storageState: undefined,
+      },
+    },
+
+    {
+      name: 'auth-firefox',
+      testMatch: /tests\/auth\/.*\.spec\.js/,
+      use: {
+        browserName: 'firefox',
+        ...devices['Desktop Firefox'],
+        storageState: undefined,
+      },
+    },
+
+    {
+      name: 'auth-webkit',
+      testMatch: /tests\/auth\/.*\.spec\.js/,
+      use: {
+        browserName: 'webkit',
+        ...devices['Desktop Safari'],
         storageState: undefined,
       },
     },
@@ -71,7 +92,7 @@ export default defineConfig({
     },
 
     /* ===============================
-       🚀 LOGGED-IN TESTS – CHROMIUM ONLY
+       🚀 LOGGED-IN TESTS – CHROMIUM
        =============================== */
     {
       name: 'chromium',
@@ -79,6 +100,32 @@ export default defineConfig({
       use: {
         browserName: 'chromium',
         ...devices['Desktop Chrome'],
+        storageState: 'storage/auth.json',
+      },
+    },
+
+    /* ===============================
+       🚀 LOGGED-IN TESTS – FIREFOX
+       =============================== */
+    {
+      name: 'firefox',
+      dependencies: ['setup'],
+      use: {
+        browserName: 'firefox',
+        ...devices['Desktop Firefox'],
+        storageState: 'storage/auth.json',
+      },
+    },
+
+    /* ===============================
+       🚀 LOGGED-IN TESTS – WEBKIT (SAFARI)
+       =============================== */
+    {
+      name: 'webkit',
+      dependencies: ['setup'],
+      use: {
+        browserName: 'webkit',
+        ...devices['Desktop Safari'],
         storageState: 'storage/auth.json',
       },
     },
