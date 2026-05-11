@@ -1,205 +1,237 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { LoginPage } from './login.page';
 
-export class ManPage {
+export class MANPage {
+
   page: Page;
 
-  /* LOGIN */
-  loginButton: Locator;
-
-  /* DEV MODE */
-  devModeButton: Locator;
-
-  /* SIDEBARS */
-  iconSidebar: Locator;
-  textSidebar: Locator;
-
-  /* MENUS */
+  /* SIDEBAR */
   agentStudioIcon: Locator;
   multiAgentNetworkMenu: Locator;
 
-  /* MAN PAGE ELEMENTS */
-  manHeading: Locator;
-  createNewButton: Locator;
-  chatInput: Locator;
-  quickViewButton: Locator;
-  cloneButton: Locator;
-  manCard: Locator;
+  /* MAN PAGE */
+  createMANButton: Locator;
+
+  /* CREATE PROJECT MODAL */
+  projectNameInput: Locator;
+  projectDescriptionInput: Locator;
+  createButton: Locator;
+
+  /* SUCCESS MESSAGE */
+  successMessage: Locator;
+
+  /* CHAT */
+  askAnythingInput: Locator;
+
+  /* INITIALIZING */
+  initializingText: Locator;
 
   constructor(page: Page) {
+
     this.page = page;
 
-    /* LOGIN */
-    this.loginButton =
-      page.getByRole('button', { name: /login/i });
+    /* SIDEBAR */
 
-    /* DEV MODE */
-    this.devModeButton =
-      page.getByRole('button', { name: /dev mode/i });
-
-    /* SIDEBARS */
-    this.iconSidebar =
-      page.locator('aside').first();
-
-    this.textSidebar =
-      page.locator('aside').nth(1);
-
-    /* MENUS */
     this.agentStudioIcon =
-      page.locator('aside').first();
+      page.locator('svg').nth(4);
 
     this.multiAgentNetworkMenu =
-      page.getByText(/multi-agent network/i);
+      page.getByTestId(
+        'nav-agent-studio-multi-agent-network'
+      );
 
-    /* MAN PAGE ELEMENTS */
-    this.manHeading =
-      page.getByText(/multi-agent network/i);
+    /* MAN PAGE */
 
-    this.createNewButton =
-      page.getByRole('button', { name: /create new/i });
+    this.createMANButton =
+      page.getByTestId(
+        'agent-studio-man-create-network'
+      );
 
-    this.chatInput =
-      page.locator('textarea, input').first();
+    /* CREATE PROJECT MODAL */
 
-    this.quickViewButton =
-      page.getByRole('button', { name: /quick view/i }).first();
+    this.projectNameInput =
+      page.getByPlaceholder(
+        /enter your project name/i
+      );
 
-    this.cloneButton =
-      page.getByRole('button', { name: /clone/i }).first();
+    this.projectDescriptionInput =
+      page.getByPlaceholder(
+        /enter your project description/i
+      );
 
-    this.manCard =
-      page.locator('[data-testid]').first();
+    this.createButton =
+      page.getByRole('button', {
+        name: /^create$/i,
+      });
+
+    /* SUCCESS MESSAGE */
+
+    this.successMessage =
+      page.getByText(
+        /project created successfully/i
+      );
+
+    /* CHAT */
+
+    this.askAnythingInput =
+      page.getByPlaceholder(
+        /ask anything/i
+      );
+
+    /* INITIALIZING */
+
+    this.initializingText =
+      page.getByText(
+        /initializing/i
+      );
   }
 
-  /* -------------------------------- */
-  /* NAVIGATION */
-  /* -------------------------------- */
+  /* ================= COMPLETE WORKFLOW ================= */
 
-  async navigateToMan(): Promise<void> {
-    console.log("🌐 Opening Vanij SAI");
+  async createMANWorkflow(): Promise<void> {
 
-    await this.page.goto(`${process.env.BASE_URL}/sai`, {
-      waitUntil: 'domcontentloaded',
-      timeout: 120000
-    });
+    console.log('🌐 Opening Vanij');
 
-    /* LOGIN */
-    console.log("🔐 Performing login");
+    await this.page.goto(
+      process.env.BASE_URL as string,
+      {
+        waitUntil: 'domcontentloaded',
+        timeout: 120000,
+      }
+    );
+
+    /* ================= LOGIN ================= */
+
+    console.log('🔐 Starting Login');
 
     const login = new LoginPage(this.page);
 
     await login.loginWithPassword(
       process.env.USER_EMAIL as string,
-      process.env.USER_PASSWORD as string,
-      { timeout: 120000 }
+      process.env.USER_PASSWORD as string
     );
 
-    /* CLICK DEV MODE */
-    console.log("🚀 Clicking Dev Mode");
+    console.log(
+      '✅ Dashboard Opened Successfully'
+    );
 
-    await this.page.waitForSelector('button:has-text("Dev Mode")', {
-      timeout: 120000
+    /* ================= AGENT STUDIO ================= */
+
+    await this.page.waitForTimeout(5000);
+
+    console.log(
+      '📂 Clicking Agent Studio'
+    );
+
+    await this.agentStudioIcon.click({
+      force: true,
     });
 
-    await this.page.locator('button:has-text("Dev Mode")').click();
+    console.log(
+      '✅ Agent Studio Opened'
+    );
 
-    /* WAIT FOR ICON SIDEBAR */
-    await this.page.waitForTimeout(120000);
+    /* ================= MULTI AGENT NETWORK ================= */
 
-    /* CLICK AGENT STUDIO ICON */
-    console.log("📂 Opening Agent Studio");
-
-    await this.iconSidebar.click();
-    await this.page.waitForTimeout(120000);
-
-    /* WAIT FOR TEXT SIDEBAR */
-    await this.page.waitForTimeout(120000);
-
-    /* CLICK MULTI AGENT NETWORK */
-    console.log("🤖 Opening Multi-Agent Network");
-
-    await this.multiAgentNetworkMenu.click();
-    await this.page.waitForTimeout(120000);
-
-    /* VERIFY PAGE */
-    await expect(this.manHeading).toBeVisible({
-      timeout: 120000
+    await expect(
+      this.multiAgentNetworkMenu
+    ).toBeVisible({
+      timeout: 120000,
     });
 
-    console.log("✅ MAN page opened successfully");
-  }
+    console.log(
+      '🤖 Opening Multi Agent Network'
+    );
 
-  /* -------------------------------- */
-  /* VERIFY PAGE */
-  /* -------------------------------- */
-
-  async verifyManPageLoaded(): Promise<void> {
-    await expect(this.manHeading).toBeVisible({
-      timeout: 120000
-    });
-  }
-
-  /* -------------------------------- */
-  /* CREATE MAN */
-  /* -------------------------------- */
-
-  async createNewMan(): Promise<void> {
-    console.log("➕ Creating new MAN");
-
-    await expect(this.createNewButton).toBeVisible({
-      timeout: 120000
+    await this.multiAgentNetworkMenu.click({
+      force: true,
     });
 
-    await this.createNewButton.click();
+    await this.page.waitForTimeout(5000);
 
-    await this.page.waitForTimeout(120000);
+    /* ================= CREATE MAN ================= */
 
-    await expect(this.chatInput).toBeVisible({
-      timeout: 120000
+    await expect(
+      this.createMANButton
+    ).toBeVisible({
+      timeout: 120000,
     });
 
-    await this.chatInput.fill("Automation Test MAN");
+    console.log(
+      '➕ Creating Multi Agent Network'
+    );
 
-    await this.page.keyboard.press('Enter');
-
-    console.log("✅ MAN created successfully");
-  }
-
-  /* -------------------------------- */
-  /* CLONE MAN */
-  /* -------------------------------- */
-
-  async cloneManProject(): Promise<void> {
-    console.log("📄 Cloning MAN");
-
-    await expect(this.quickViewButton).toBeVisible({
-      timeout: 120000
+    await this.createMANButton.click({
+      force: true,
     });
 
-    await this.quickViewButton.click();
+    /* ================= ENTER DETAILS ================= */
 
-    await expect(this.cloneButton).toBeVisible({
-      timeout: 120000
+    const projectName =
+      `MAN Project ${Date.now()}`;
+
+    await expect(
+      this.projectNameInput
+    ).toBeVisible({
+      timeout: 120000,
     });
 
-    await this.cloneButton.click();
+    await this.projectNameInput.fill(
+      projectName
+    );
 
-    console.log("✅ MAN cloned successfully");
-  }
+    await this.projectDescriptionInput.fill(
+      'Automation MAN Project'
+    );
 
-  /* -------------------------------- */
-  /* OPEN EXISTING MAN */
-  /* -------------------------------- */
+    /* ================= CREATE ================= */
 
-  async openExistingMan(): Promise<void> {
-    console.log("📂 Opening existing MAN");
-
-    await expect(this.manCard).toBeVisible({
-      timeout: 120000
+    await this.createButton.click({
+      force: true,
     });
 
-    await this.manCard.click();
+    /* ================= SUCCESS MESSAGE ================= */
 
-    console.log("✅ MAN opened successfully");
+    await expect(
+      this.successMessage
+    ).toBeVisible({
+      timeout: 120000,
+    });
+
+    console.log(
+      '✅ Project Created Successfully'
+    );
+
+    /* ================= ENTER PROMPT ================= */
+
+    await expect(
+      this.askAnythingInput
+    ).toBeVisible({
+      timeout: 120000,
+    });
+
+    console.log(
+      '💬 Sending Prompt'
+    );
+
+    await this.askAnythingInput.fill(
+      'generate me a sports multiagent'
+    );
+
+    await this.page.keyboard.press(
+      'Enter'
+    );
+
+    /* ================= INITIALIZING ================= */
+
+    await expect(
+      this.initializingText
+    ).toBeVisible({
+      timeout: 120000,
+    });
+
+    console.log(
+      '✅ Multi Agent Network Initialized Successfully'
+    );
   }
 }

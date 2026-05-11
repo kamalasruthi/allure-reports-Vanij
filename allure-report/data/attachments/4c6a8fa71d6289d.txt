@@ -1,0 +1,12 @@
+🌐 Opening Vanij
+🔐 Starting Login
+🌐 Opening Vanij
+🔐 Clicking Login
+📧 Entering Email
+🔑 Entering Password
+✅ Clicking Sign In
+✅ Password Login Successful
+✅ Dashboard Opened Successfully
+📂 Clicking Agent Studio
+✅ Agent Studio Opened
+📁 Opening Projects
