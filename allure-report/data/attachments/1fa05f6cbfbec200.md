@@ -1,0 +1,136 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - generic [ref=e6]:
+          - img "Logo" [ref=e8] [cursor=pointer]
+          - heading "ADYA" [level=1] [ref=e9]
+        - generic [ref=e10]:
+          - button "Ask SAI" [ref=e11] [cursor=pointer]:
+            - img
+            - text: Ask SAI
+          - button "AI Marketplace" [ref=e12] [cursor=pointer]:
+            - img
+            - text: AI Marketplace
+          - button "Notifications" [ref=e13] [cursor=pointer]:
+            - img
+            - generic: "7"
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e16]:
+          - navigation [ref=e17]:
+            - button "core" [ref=e19] [cursor=pointer]:
+              - img "core" [ref=e20]
+            - button "agent-studio" [ref=e22] [cursor=pointer]:
+              - img "agent-studio" [ref=e23]
+            - button "cloud-studio" [ref=e25] [cursor=pointer]:
+              - img "cloud-studio" [ref=e26]
+            - button "app-studio" [ref=e28] [cursor=pointer]:
+              - img "app-studio" [ref=e29]
+            - button "model-studio" [ref=e31] [cursor=pointer]:
+              - img "model-studio" [ref=e32]
+            - button "settings" [ref=e35] [cursor=pointer]:
+              - img "settings" [ref=e36]
+          - button [ref=e38] [cursor=pointer]:
+            - img [ref=e39]
+        - generic [ref=e44]:
+          - generic [ref=e45]:
+            - generic [ref=e46]: Home
+            - button [ref=e47] [cursor=pointer]:
+              - img [ref=e48]
+          - navigation [ref=e53]:
+            - link "Dashboard" [ref=e54] [cursor=pointer]:
+              - /url: /dashboard
+              - img [ref=e55]
+              - generic [ref=e58]: Dashboard
+            - link "Manage Users" [ref=e59] [cursor=pointer]:
+              - /url: /user-management
+              - img [ref=e60]
+              - generic [ref=e65]: Manage Users
+            - link "File Manager" [ref=e66] [cursor=pointer]:
+              - /url: /file-manager
+              - img [ref=e67]
+              - generic [ref=e70]: File Manager
+            - link "Audit Trail" [ref=e71] [cursor=pointer]:
+              - /url: /audit-trail
+              - img [ref=e72]
+              - generic [ref=e74]: Audit Trail
+            - link "Key Vault" [ref=e75] [cursor=pointer]:
+              - /url: /key-vault
+              - img [ref=e76]
+              - generic [ref=e79]: Key Vault
+            - link "Support" [ref=e80] [cursor=pointer]:
+              - /url: /support
+              - img [ref=e81]
+              - generic [ref=e84]: Support
+            - link "Subscription Plans" [ref=e85] [cursor=pointer]:
+              - /url: /subscription-plans
+              - img [ref=e86]
+              - generic [ref=e90]: Subscription Plans
+            - link "Billing" [ref=e91] [cursor=pointer]:
+              - /url: /billing
+              - img [ref=e92]
+              - generic [ref=e97]: Billing
+            - link "FAQs" [ref=e98] [cursor=pointer]:
+              - /url: /faqs
+              - img [ref=e99]
+              - generic [ref=e102]: FAQs
+          - generic [ref=e104] [cursor=pointer]:
+            - img [ref=e106]
+            - generic [ref=e109]:
+              - paragraph [ref=e110]: Wallet Balance
+              - paragraph [ref=e111]: ₹0.00
+            - img [ref=e113]
+      - main [ref=e116]:
+        - generic [ref=e118]:
+          - generic [ref=e119]:
+            - img "SuperAgent Background" [ref=e120]
+            - generic [ref=e121]:
+              - generic [ref=e122]:
+                - heading "AI-Powered answers for Your Business" [level=1] [ref=e123]:
+                  - text: AI-Powered
+                  - text: answers for Your Business
+                - paragraph [ref=e124]: Smart, seamless, and scalable. Vanij orchestrates AI-driven workflows with a powerful 4-layer architecture. Build, automate, and optimize effortlessly.
+                - button "Subscribe Now" [ref=e126] [cursor=pointer]:
+                  - img
+                  - text: Subscribe Now
+              - img "SuperAgent Component" [ref=e128]
+          - generic [ref=e129]:
+            - generic [ref=e130]:
+              - img "Grid Background" [ref=e131]
+              - generic [ref=e132]:
+                - generic [ref=e133]:
+                  - heading "New to platform?" [level=2] [ref=e134]
+                  - paragraph [ref=e135]: Discover our platform's key features with a quick guided tour.
+                - generic [ref=e136]:
+                  - button "Start Tour" [ref=e137] [cursor=pointer]
+                  - button "Subscribe Now" [ref=e138] [cursor=pointer]:
+                    - img
+                    - text: Subscribe Now
+            - generic [ref=e139]:
+              - generic [ref=e140]:
+                - generic [ref=e141]:
+                  - generic [ref=e142]:
+                    - img "Agent Studio icon" [ref=e144]
+                    - paragraph [ref=e145]: Agent Studio
+                  - paragraph [ref=e146]: Agent Studio enables you to design and customize AI agents tailored to your specific needs. By seamlessly connecting components, you can build intelligent workflows, automate processes, and enhance decision-making, all within an intuitive and scalable platform.
+                - button "Start Building Now" [ref=e147] [cursor=pointer]
+              - generic [ref=e148]:
+                - generic [ref=e149]:
+                  - img "App Studio icon" [ref=e151]
+                  - paragraph [ref=e152]: App Studio
+                - generic [ref=e153]:
+                  - img "AI Marketplace icon" [ref=e155]
+                  - paragraph [ref=e156]: AI Marketplace
+                - generic [ref=e157]:
+                  - img "Cloud Studio icon" [ref=e159]
+                  - paragraph [ref=e160]: Cloud Studio
+                - generic [ref=e161]:
+                  - img "Model Studio icon" [ref=e163]
+                  - paragraph [ref=e164]: Model Studio
+  - region "Notifications alt+T"
+  - region "Notifications Alt+T"
+```

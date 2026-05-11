@@ -1,9 +1,5 @@
-node_modules/
-allure-results/
-allure-report/
-allure-report.zip
-playwright-report/
-test-results/
-videos/
-screenshots/
-*.zip
+node_modules
+playwright-report
+test-results
+allure-results
+.env

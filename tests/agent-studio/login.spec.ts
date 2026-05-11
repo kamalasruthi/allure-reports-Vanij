@@ -2,40 +2,140 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Login – Standard OTP', () => {
 
-  test('Verify user can login using standard OTP', async ({ page }) => {
+  test(
+    'Verify user can login using standard OTP',
+    async ({ page }) => {
 
-    await page.goto(process.env.BASE_URL as string);
-    await page.waitForLoadState('domcontentloaded');
+      console.log('🌐 Opening Vanij');
 
-    // Click Login
-    await page.getByRole('button', { name: /^login$/i }).click();
+      // Open Orchestrator Page
+      await page.goto(
+        `${process.env.BASE_URL}/orchestrator`,
+        {
+          waitUntil: 'domcontentloaded',
+          timeout: 120000,
+        }
+      );
 
-    // Enter Email
-    const emailInput = page.getByPlaceholder('name@example.com');
-    await emailInput.waitFor({ state: 'visible', timeout: 30000 });
-    await emailInput.fill(process.env.USER_EMAIL as string);
+      await page.waitForLoadState('networkidle');
 
-    // Continue
-    await page.getByRole('button', { name: /continue/i }).click();
+      console.log('✅ Orchestrator Page Opened');
 
-    // Wait for OTP screen
-    await expect(
-      page.getByText(/sign in to your account/i)
-    ).toBeVisible({ timeout: 30000 });
+      /* ================= LOGIN ================= */
 
-    // Enter OTP
-    const otpInput = page.locator(
-      'input[inputmode="numeric"], input[type="tel"]'
-    );
+      // Click Normal Login Button
+      const loginButton =
+        page.getByRole('button', {
+          name: /^login$/i,
+        });
 
-    await otpInput.waitFor({ state: 'visible', timeout: 30000 });
-    await otpInput.fill(process.env.STANDARD_OTP as string);
+      await expect(loginButton).toBeVisible({
+        timeout: 120000,
+      });
 
-    // Verify Code
-    await page.getByRole('button', { name: /verify code/i }).click();
+      console.log('🔐 Clicking Login');
 
-    // ✅ SUCCESS ASSERTION
-    await expect(page).toHaveURL(/\/sai/i);
-  });
+      await loginButton.click();
+
+      /* ================= EMAIL ================= */
+
+      const emailInput =
+        page.locator('input[type="email"]');
+
+      await expect(emailInput).toBeVisible({
+        timeout: 120000,
+      });
+
+      console.log('📧 Entering Email');
+
+      await emailInput.fill(
+        process.env.USER_EMAIL as string
+      );
+
+      /* ================= CONTINUE ================= */
+
+      const continueButton =
+        page.getByRole('button', {
+          name: /continue/i,
+        });
+
+      await expect(continueButton).toBeVisible({
+        timeout: 120000,
+      });
+
+      console.log('➡ Clicking Continue');
+
+      await continueButton.click();
+
+      /* ================= OTP SCREEN ================= */
+
+      await page.waitForTimeout(3000);
+
+      console.log('🔢 Waiting for OTP Input');
+
+      // OTP inputs usually come as 6 separate boxes
+      const otpInputs =
+        page.locator(
+          'input[inputmode="numeric"]'
+        );
+
+      await expect(
+        otpInputs.first()
+      ).toBeVisible({
+        timeout: 120000,
+      });
+
+      const otp =
+        process.env.STANDARD_OTP as string;
+
+      console.log('🔢 Entering OTP:', otp);
+
+      // Fill OTP digit by digit
+      for (let i = 0; i < otp.length; i++) {
+        await otpInputs.nth(i).fill(otp[i]);
+      }
+
+      /* ================= VERIFY CODE ================= */
+
+      const verifyCodeButton =
+        page.getByRole('button', {
+          name: /verify code/i,
+        });
+
+      await expect(
+        verifyCodeButton
+      ).toBeVisible({
+        timeout: 120000,
+      });
+
+      console.log('✅ Clicking Verify Code');
+
+      await verifyCodeButton.click();
+
+      /* ================= SUCCESS ================= */
+
+      await page.waitForLoadState(
+        'networkidle'
+      );
+
+      // Wait for redirect
+      await page.waitForURL(
+        /orchestrator|dashboard/i,
+        {
+          timeout: 120000,
+        }
+      );
+
+      console.log(
+        '✅ Login Successful'
+      );
+
+      // Final validation
+      await expect(page).toHaveURL(
+        /orchestrator|dashboard/i
+      );
+
+    }
+  );
 
 });

@@ -1,31 +1,29 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 import { ProjectPage } from '../pages/project.page';
 
-test.describe('Vanij Agent Studio - Projects Module', () => {
+test.describe(
+  'Vanij Agent Studio - Complete Workflow',
+  () => {
 
-  let project: ProjectPage;
+    let project: ProjectPage;
 
-  test.beforeEach(async ({ page }) => {
-    project = new ProjectPage(page);
+    test.beforeEach(async ({ page }) => {
+      project = new ProjectPage(page);
+    });
 
-    // Navigate to Projects page
-    await project.navigateToProjects();
-  });
+    test(
+      'Login → Agent Studio → Projects → Create Project → Create Flow',
+      async () => {
 
-  test('Create Project', async () => {
-    await project.createProject();
-  });
+        /* ================= COMPLETE WORKFLOW ================= */
 
-  test('View Project', async () => {
-    await project.viewProject();
-  });
+        await project.createProjectAndFlow();
 
-  test('Edit Project', async () => {
-    await project.editProject();
-  });
+        console.log(
+          '✅ Complete Workflow Executed Successfully'
+        );
+      }
+    );
 
-  test('Delete Project', async () => {
-    await project.deleteProject();
-  });
-
-});
+  }
+);

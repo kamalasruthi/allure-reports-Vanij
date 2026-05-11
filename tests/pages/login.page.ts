@@ -1,116 +1,225 @@
 import { Page, Locator, expect } from '@playwright/test';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export class LoginPage {
+
   page: Page;
 
-  /* ERROR */
-  errorMessage: Locator;
-
-  /* LANDING */
+  /* LOGIN */
   loginButton: Locator;
-
-  /* MODAL */
-  loginModal: Locator;
 
   /* EMAIL */
   emailInput: Locator;
   continueButton: Locator;
 
-  /* OTP */
-  verifyCodeButton: Locator;
-
   /* PASSWORD */
   passwordInput: Locator;
   signInButton: Locator;
 
+  /* OTP */
+  verifyCodeButton: Locator;
+
   constructor(page: Page) {
+
     this.page = page;
 
-    /* ERROR */
-    this.errorMessage =
-      page.getByText(/invalid|incorrect|failed|error|not found|try again/i);
-
-    /* LANDING */
+    /* LOGIN BUTTON */
     this.loginButton =
-      page.getByRole('button', { name: /login/i });
+      page.getByRole('button', {
+        name: /^login$/i,
+      });
 
-    /* MODAL */
-    this.loginModal =
-      page.locator('text=Sign in to your account');
-
-    /* EMAIL */
+    /* EMAIL INPUT */
     this.emailInput =
       page.locator('input[type="email"]');
 
+    /* CONTINUE BUTTON */
     this.continueButton =
-      page.getByRole('button', { name: /continue/i });
+      page.getByRole('button', {
+        name: /continue/i,
+      });
 
-    /* OTP */
-    this.verifyCodeButton =
-      page.getByRole('button', { name: /verify code/i });
-
-    /* PASSWORD */
+    /* PASSWORD INPUT */
     this.passwordInput =
       page.locator('input[type="password"]');
 
+    /* SIGN IN BUTTON */
     this.signInButton =
-      page.getByRole('button', { name: /sign in/i });
+      page.getByRole('button', {
+        name: /sign in/i,
+      });
+
+    /* VERIFY CODE BUTTON */
+    this.verifyCodeButton =
+      page.getByRole('button', {
+        name: /verify code/i,
+      });
   }
 
-  /* ================= OPEN LOGIN MODAL ================= */
-  async openLoginModal(): Promise<void> {
-    await this.page.goto('/sai');
+  /* ================= OPEN LOGIN ================= */
 
-    await expect(this.loginButton).toBeVisible({ timeout: 30000 });
+  async openLogin(): Promise<void> {
+
+    console.log('🌐 Opening Vanij');
+
+    await this.page.goto(
+      `${process.env.BASE_URL}/orchestrator`,
+      {
+        waitUntil: 'domcontentloaded',
+        timeout: 120000,
+      }
+    );
+
+    await this.page.waitForLoadState(
+      'networkidle'
+    );
+
+    console.log('🔐 Clicking Login');
+
+    await expect(
+      this.loginButton
+    ).toBeVisible({
+      timeout: 120000,
+    });
+
     await this.loginButton.click();
-
-    await expect(this.loginModal).toBeVisible({ timeout: 30000 });
-  }
-
-  /* ================= OTP LOGIN ================= */
-  async loginWithOTP(
-    email: string,
-    otp: string,
-    options: { timeout?: number } = {}
-  ): Promise<void> {
-    const timeout = options.timeout ?? 30000;
-
-    await this.openLoginModal();
-
-    await expect(this.emailInput).toBeVisible({ timeout });
-    await this.emailInput.fill(email);
-    await this.continueButton.click();
-
-    await expect(this.verifyCodeButton).toBeVisible({ timeout });
-
-    await this.page.keyboard.type(otp);
-
-    await this.page.waitForTimeout(1000);
-
-    await this.verifyCodeButton.click({ force: true });
-
-    await this.page.waitForURL(/\/sai/i, { timeout });
   }
 
   /* ================= PASSWORD LOGIN ================= */
+
   async loginWithPassword(
-    email: string,
-    password: string,
-    options: { timeout?: number } = {}
+    email: string =
+      process.env.USER_EMAIL || '',
+
+    password: string =
+      process.env.USER_PASSWORD || ''
   ): Promise<void> {
-    const timeout = options.timeout ?? 30000;
 
-    await this.openLoginModal();
+    await this.openLogin();
 
-    await expect(this.emailInput).toBeVisible({ timeout });
+    /* EMAIL */
+
+    await expect(
+      this.emailInput
+    ).toBeVisible({
+      timeout: 120000,
+    });
+
+    console.log('📧 Entering Email');
+
     await this.emailInput.fill(email);
+
+    /* CONTINUE */
+
     await this.continueButton.click();
 
-    await expect(this.passwordInput).toBeVisible({ timeout });
-    await this.passwordInput.fill(password);
+    /* PASSWORD */
 
-    await this.signInButton.click({ force: true });
+    await expect(
+      this.passwordInput
+    ).toBeVisible({
+      timeout: 120000,
+    });
 
-    await this.page.waitForURL(/\/sai/i, { timeout });
+    console.log('🔑 Entering Password');
+
+    await this.passwordInput.fill(
+      password
+    );
+
+    /* SIGN IN */
+
+    await expect(
+      this.signInButton
+    ).toBeVisible({
+      timeout: 120000,
+    });
+
+    console.log('✅ Clicking Sign In');
+
+    await this.signInButton.click();
+
+    /* SUCCESS */
+
+    await this.page.waitForLoadState(
+      'networkidle'
+    );
+
+    console.log(
+      '✅ Password Login Successful'
+    );
+  }
+
+  /* ================= OTP LOGIN ================= */
+
+  async loginWithOTP(
+    email: string =
+      process.env.USER_EMAIL || '',
+
+    otp: string =
+      process.env.STANDARD_OTP || ''
+  ): Promise<void> {
+
+    await this.openLogin();
+
+    /* EMAIL */
+
+    await expect(
+      this.emailInput
+    ).toBeVisible({
+      timeout: 120000,
+    });
+
+    console.log('📧 Entering Email');
+
+    await this.emailInput.fill(email);
+
+    /* CONTINUE */
+
+    await this.continueButton.click();
+
+    /* OTP INPUT */
+
+    const otpInput =
+      this.page.locator(
+        'input[inputmode="numeric"], input[type="tel"]'
+      ).first();
+
+    await expect(
+      otpInput
+    ).toBeVisible({
+      timeout: 120000,
+    });
+
+    console.log('🔢 Entering OTP');
+
+    // Fill full OTP directly
+    await otpInput.fill(otp);
+
+    /* VERIFY CODE */
+
+    await expect(
+      this.verifyCodeButton
+    ).toBeVisible({
+      timeout: 120000,
+    });
+
+    console.log(
+      '✅ Clicking Verify Code'
+    );
+
+    await this.verifyCodeButton.click();
+
+    /* SUCCESS */
+
+    await this.page.waitForLoadState(
+      'networkidle'
+    );
+
+    console.log(
+      '✅ OTP Login Successful'
+    );
   }
 }

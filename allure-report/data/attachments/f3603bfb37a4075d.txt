@@ -1,0 +1,9 @@
+🔹 Navigating to AGP module
+🌐 Opening SAI
+🔐 Performing login
+✅ Login successful
+🚀 Clicking Dev Mode
+📂 Opening Agent Studio
+📊 Opening AGP
+✅ AGP page opened successfully
+⚠️ Testing negative scenario

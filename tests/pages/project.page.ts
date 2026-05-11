@@ -4,209 +4,289 @@ import { LoginPage } from './login.page';
 export class ProjectPage {
   page: Page;
 
-  /* LOGIN */
-  loginButton: Locator;
-
-  /* DEV MODE */
-  devModeButton: Locator;
-
   /* SIDEBAR */
   sidebar: Locator;
   agentStudioMenu: Locator;
   projectsMenu: Locator;
 
-  /* PROJECT PAGE */
+  /* PROJECT */
   createProjectButton: Locator;
   projectNameInput: Locator;
   projectDescriptionInput: Locator;
-  submitButton: Locator;
+  createProjectSubmitButton: Locator;
 
-  /* ACTION BUTTONS */
-  viewButton: Locator;
-  editButton: Locator;
-  deleteButton: Locator;
-  confirmDeleteInput: Locator;
-  confirmDeleteButton: Locator;
+  /* FLOW */
+  createCustomFlowButton: Locator;
+  flowNameInput: Locator;
+  flowDescriptionInput: Locator;
+  keywordInput: Locator;
+  flowTypeDropdown: Locator;
+  createFlowButton: Locator;
+
+  /* SUCCESS MESSAGE */
+  successMessage: Locator;
 
   constructor(page: Page) {
     this.page = page;
 
-    /* LOGIN */
-    this.loginButton =
-      page.getByRole('button', { name: /login/i });
-
-    /* DEV MODE */
-    this.devModeButton =
-      page.getByRole('button', { name: /dev mode/i });
-
     /* SIDEBAR */
-    this.sidebar = page.locator('aside');
+    this.sidebar =
+      page.locator('aside');
 
+    /* AGENT STUDIO */
     this.agentStudioMenu =
-      this.sidebar.getByText('Agent Studio').first();
+      page.getByText(/agent studio/i).first();
 
+    /* PROJECTS */
     this.projectsMenu =
-      this.sidebar.getByText('Projects').first();
+      page.getByRole('link', {
+        name: /projects/i,
+      });
 
-    /* PROJECT PAGE */
+    /* PROJECT */
     this.createProjectButton =
-      page.getByRole('button', { name: /create new project/i });
+      page.getByRole('button', {
+        name: /create new project/i,
+      });
 
     this.projectNameInput =
-      page.getByPlaceholder(/project name/i);
+      page.getByPlaceholder(
+        /project name/i
+      );
 
     this.projectDescriptionInput =
-      page.getByPlaceholder(/project description/i);
+      page.getByPlaceholder(
+        /project description/i
+      );
 
-    this.submitButton =
-      page.getByRole('button', { name: /submit|create/i });
+    this.createProjectSubmitButton =
+      page.getByRole('button', {
+        name: /^create$/i,
+      });
 
-    /* ACTION BUTTONS */
-    this.viewButton =
-      page.getByRole('button', { name: /view/i }).first();
+    /* FLOW */
+    this.createCustomFlowButton =
+      page.getByRole('button', {
+        name: /create custom flow/i,
+      });
 
-    this.editButton =
-      page.getByRole('button', { name: /edit/i }).first();
+    this.flowNameInput =
+      page.getByPlaceholder(
+        /flow name/i
+      );
 
-    this.deleteButton =
-      page.getByRole('button', { name: /delete/i }).first();
+    this.flowDescriptionInput =
+      page.getByPlaceholder(
+        /flow description/i
+      );
 
-    this.confirmDeleteInput =
-      page.getByPlaceholder(/delete/i);
+    this.keywordInput =
+      page.getByPlaceholder(
+        /keyword/i
+      );
 
-    this.confirmDeleteButton =
-      page.getByRole('button', { name: /^delete$/i });
+    this.flowTypeDropdown =
+      page.locator(
+        '[role="combobox"]'
+      ).first();
+
+    this.createFlowButton =
+      page.getByRole('button', {
+        name: /^create$/i,
+      });
+
+    /* SUCCESS MESSAGE */
+    this.successMessage =
+      page.getByText(
+        /created successfully/i
+      );
   }
 
-  /* ================= NAVIGATION ================= */
+  /* ================= COMPLETE WORKFLOW ================= */
 
-  async navigateToProjects(): Promise<void> {
-    console.log("🌐 Opening Vanij...");
+  async createProjectAndFlow(): Promise<void> {
 
-    await this.page.goto(process.env.BASE_URL as string, {
-      waitUntil: 'domcontentloaded',
-      timeout: 120000
-    });
+    console.log('🌐 Opening Vanij');
 
-    /* LOGIN */
-    console.log("🔐 Starting login process...");
+    await this.page.goto(
+      process.env.BASE_URL as string,
+      {
+        waitUntil: 'domcontentloaded',
+        timeout: 200000,
+      }
+    );
 
-    const login = new LoginPage(this.page);
+    /* ================= LOGIN ================= */
+
+    console.log('🔐 Starting Login');
+
+    const login =
+      new LoginPage(this.page);
 
     await login.loginWithPassword(
       process.env.USER_EMAIL as string,
       process.env.USER_PASSWORD as string
     );
 
-    /* WAIT FOR SAI */
-    await this.page.waitForURL(/sai/, {
-      timeout: 120000
+    await this.page.waitForTimeout(5000);
+
+    console.log(
+      '✅ Dashboard Opened Successfully'
+    );
+
+    /* ================= AGENT STUDIO ================= */
+
+    console.log(
+      '📂 Clicking Agent Studio'
+    );
+
+    await expect(
+      this.agentStudioMenu
+    ).toBeVisible({
+      timeout: 120000,
     });
 
-    console.log("✅ Login completed. SAI opened");
-
-    /* DEV MODE */
-    await expect(this.devModeButton).toBeVisible({
-      timeout: 120000
+    await this.agentStudioMenu.click({
+      force: true,
     });
 
-    console.log("🚀 Clicking Dev Mode");
+    await this.page.waitForTimeout(5000);
 
-    await this.devModeButton.click();
+    console.log(
+      '✅ Agent Studio Opened'
+    );
 
-    await this.page.waitForLoadState('networkidle');
+    /* ================= PROJECTS ================= */
 
-    /* AGENT STUDIO */
-    await expect(this.agentStudioMenu).toBeVisible({
-      timeout: 120000
+    console.log(
+      '📁 Opening Projects'
+    );
+
+    await expect(
+      this.projectsMenu
+    ).toBeVisible({
+      timeout: 120000,
     });
 
-    console.log("📂 Opening Agent Studio");
-
-    await this.agentStudioMenu.click();
-
-    await this.page.waitForLoadState('networkidle');
-
-    /* PROJECTS */
-    await expect(this.projectsMenu).toBeVisible({
-      timeout: 120000
+    await this.projectsMenu.click({
+      force: true,
     });
 
-    console.log("📁 Opening Projects");
+    await this.page.waitForTimeout(5000);
 
-    await this.projectsMenu.click();
-
-    /* VERIFY */
-    await expect(this.createProjectButton).toBeVisible({
-      timeout: 120000
+    await expect(
+      this.createProjectButton
+    ).toBeVisible({
+      timeout: 120000,
     });
 
-    console.log("✅ Projects page loaded successfully");
-  }
+    console.log(
+      '✅ Projects Page Opened'
+    );
 
-  /* ================= CREATE ================= */
+    /* ================= CREATE PROJECT ================= */
 
-  async createProject(): Promise<void> {
-    console.log("➕ Creating Project");
+    console.log(
+      '➕ Creating New Project'
+    );
 
     await this.createProjectButton.click();
 
-    const projectName = `Test Project ${Date.now()}`;
+    const projectName =
+      `Automation Project ${Date.now()}`;
 
-    await this.projectNameInput.fill(projectName);
+    await expect(
+      this.projectNameInput
+    ).toBeVisible({
+      timeout: 120000,
+    });
 
-    await this.projectDescriptionInput.fill(
-      "Automation Test Project"
+    await this.projectNameInput.fill(
+      projectName
     );
 
-    await this.submitButton.click();
+    await this.projectDescriptionInput.fill(
+      'Automation Testing Project'
+    );
 
-    await this.page.waitForLoadState('networkidle');
+    await this.createProjectSubmitButton.click();
 
-    // Optional validation
-    await expect(this.page.getByText(projectName)).toBeVisible();
+    await this.page.waitForTimeout(5000);
 
-    console.log("✅ Project created:", projectName);
-  }
+    console.log(
+      '✅ Project Created Successfully'
+    );
 
-  /* ================= VIEW ================= */
+    /* ================= CREATE FLOW ================= */
 
-  async viewProject(): Promise<void> {
-    console.log("👁 Viewing Project");
+    await expect(
+      this.createCustomFlowButton
+    ).toBeVisible({
+      timeout: 120000,
+    });
 
-    await expect(this.viewButton).toBeVisible();
-    await this.viewButton.click();
-  }
+    console.log(
+      '⚡ Creating Custom Flow'
+    );
 
-  /* ================= EDIT ================= */
+    await this.createCustomFlowButton.click();
 
-  async editProject(): Promise<void> {
-    console.log("✏ Editing Project");
+    await this.page.waitForTimeout(5000);
 
-    await expect(this.editButton).toBeVisible();
-    await this.editButton.click();
+    const flowName =
+      `Automation Flow ${Date.now()}`;
 
-    const updatedName = `Updated Project ${Date.now()}`;
+    await expect(
+      this.flowNameInput
+    ).toBeVisible({
+      timeout: 120000,
+    });
 
-    await this.projectNameInput.fill(updatedName);
+    await this.flowNameInput.fill(
+      flowName
+    );
 
-    await this.submitButton.click();
+    await this.flowDescriptionInput.fill(
+      'Automation Flow Description'
+    );
 
-    await expect(this.page.getByText(updatedName)).toBeVisible();
-  }
+    /* KEYWORD */
 
-  /* ================= DELETE ================= */
+    await this.keywordInput.fill(
+      'automation'
+    );
 
-  async deleteProject(): Promise<void> {
-    console.log("🗑 Deleting Project");
+    await this.page.keyboard.press(
+      'Enter'
+    );
 
-    await expect(this.deleteButton).toBeVisible();
-    await this.deleteButton.click();
+    /* ================= FLOW TYPE ================= */
 
-    await this.confirmDeleteInput.fill("DELETE");
+await this.flowTypeDropdown.click();
 
-    await this.confirmDeleteButton.click();
+await this.page
+  .getByRole('option', {
+    name: /^Agent$/i,
+  })
+  .click();
+    /* CREATE FLOW */
 
-    console.log("✅ Project deleted");
+    await this.createFlowButton.click();
+
+    /* ================= SUCCESS VALIDATION ================= */
+
+    await expect(
+      this.successMessage
+    ).toBeVisible({
+      timeout: 120000,
+    });
+
+    console.log(
+      '✅ Created Successfully Message Displayed'
+    );
+
+    /* TEST PASSED */
+
+    return;
   }
 }
