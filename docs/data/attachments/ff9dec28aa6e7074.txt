@@ -1,6 +1,0 @@
-🌐 Opening SAI
-🔐 Performing login
-✅ Login successful
-🚀 Clicking Dev Mode
-📂 Opening Agent Studio
-🔄 Opening ETL

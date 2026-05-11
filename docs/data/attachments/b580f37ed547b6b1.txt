@@ -1,6 +1,0 @@
-🔹 Navigating to AGP module
-🌐 Opening SAI
-🔐 Performing login
-✅ Login successful
-🚀 Clicking Dev Mode
-📂 Opening Agent Studio

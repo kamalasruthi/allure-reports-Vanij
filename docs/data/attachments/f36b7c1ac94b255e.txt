@@ -1,4 +1,0 @@
-🌐 Opening SAI
-🔐 Performing login
-✅ Login successful
-🚀 Clicking Dev Mode
